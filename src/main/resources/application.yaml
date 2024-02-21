@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      function:
+        bindings:
+          sqrt-in-0: numbers
+          sqrt-out-0: sqrt-numbers
+          log-in-0: sqrt-numbers
+      kafka:
+        streams:
+          bindings:
+            sqrt:
+              consumer:
+                application-id: sqrtApplicationId
+            log:
+              consumer:
+                application-id: logApplicationId
+    function:
+      definition: sqrt;log
+  kafka:
+    bootstrap-servers: "localhost:29092"
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.DoubleDeserializer
+      isolation-level: read_committed
