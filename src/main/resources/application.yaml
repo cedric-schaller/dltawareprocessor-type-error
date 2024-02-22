@@ -1,19 +1,21 @@
+debug: true
 spring:
   cloud:
     stream:
-      function:
-        bindings:
-          sqrt-in-0: numbers
-          sqrt-out-0: sqrt-numbers
-          log-in-0: sqrt-numbers
+      bindings:
+        sqrt-in-0:
+          destination: numbers
+        sqrt-out-0:
+          destination: sqrt-numbers
+        log-in-0:
+          destination: sqrt-numbers
       kafka:
         streams:
-          bindings:
-            sqrt:
-              consumer:
+          binder:
+            functions:
+              sqrt:
                 application-id: sqrtApplicationId
-            log:
-              consumer:
+              log:
                 application-id: logApplicationId
     function:
       definition: sqrt;log
